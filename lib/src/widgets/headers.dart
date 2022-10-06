@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 //*La parte superior cuadrada, con bordes redondeados
+//*Par al parte del custom paint toca extender custom paint
+//*Genera dos metodos uno que es paint para colocar relleno tamaño curva ...
+//* Geabrar metodos shouldRepaint y se retorna true
 class HeaderCuadrado extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -15,6 +18,7 @@ class HeaderCuadrado extends StatelessWidget {
   }
 }
 
+//*Header diagonal
 class HeaderDiagonal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -58,7 +62,7 @@ class _HeaderDiagonalPainter extends CustomPainter {
   }
 }
 
-//*TRiangulo en la pantalla
+//*Triangulo en la pantalla
 class HeaderTraingular extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -238,7 +242,7 @@ class _HeaderDobleCurvaPainter extends CustomPainter {
   }
 }
 
-//*Curvo abajo
+//*Curvo abajo con gradiente
 class HeaderDobleAbajoCurvo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -255,8 +259,21 @@ class HeaderDobleAbajoCurvo extends StatelessWidget {
 class _HeaderDobleAbajoCurvaPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final lapiz = Paint();
-    lapiz.color = Colors.purple;
+    final Rect rect =
+        new Rect.fromCircle(center: Offset(60, 55.0), radius: 180);
+
+    final Gradient gradiente = new LinearGradient(colors: <Color>[
+      Color(0xff6D05E8),
+      Color(0xffC012FF),
+      Color(0xff6D05FA),
+    ],
+    stops: [
+      0.2,
+      0.5,
+      1.0
+    ]);
+    final lapiz = Paint()..shader = gradiente.createShader(rect);
+    //lapiz.color = Colors.purple;
     //*Relleno de color morado
     lapiz.style = PaintingStyle.fill;
     //*Borde su grosor
@@ -272,8 +289,10 @@ class _HeaderDobleAbajoCurvaPainter extends CustomPainter {
     //*Es decir por donde pasa la linea
     //*El punto del medio
     //*Los ultimos dos valos es donde termina la curva
-    path.quadraticBezierTo(size.width * 0.25, size.height,size.width * 0.5, size.height * 0.80);
-    path.quadraticBezierTo(size.width * 0.75, size.height * 0.60, size.width, size.height * 0.80);
+    path.quadraticBezierTo(
+        size.width * 0.25, size.height, size.width * 0.5, size.height * 0.80);
+    path.quadraticBezierTo(
+        size.width * 0.75, size.height * 0.60, size.width, size.height * 0.80);
     path.lineTo(size.width, size.height);
 
     canvas.drawPath(path, lapiz);
