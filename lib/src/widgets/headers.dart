@@ -259,8 +259,11 @@ class HeaderDobleAbajoCurvo extends StatelessWidget {
 class _HeaderDobleAbajoCurvaPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
+    //*Se define el gradiente
+    //*Radius es como el angulo del circulo
+
     final Rect rect =
-        new Rect.fromCircle(center: Offset(60, 55.0), radius: 180);
+        new Rect.fromCircle(center: Offset(70, 70.0), radius: 360);
 
     final Gradient gradiente = new LinearGradient(colors: <Color>[
       Color(0xff6D05E8),
