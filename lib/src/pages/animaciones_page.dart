@@ -30,6 +30,9 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
   late AnimationController controller;
   late Animation<double> rotacion;
   late Animation<double> opacidad;
+  late Animation<double> opacidadOut;
+  late Animation<double> mover;
+  late Animation<double> agrandar;
 
   @override
   void initState() {
@@ -39,16 +42,28 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
     // la rotacion comienza  a variar desde 0 hasta 2 en los 4000 segundo
     // lo de curves es el tipo de animacion
     rotacion = Tween(begin: 0.0, end: 2 * Math.pi)
-    //En que punto del tiempo se reproduce la animacion
-        .animate(CurvedAnimation(parent: controller, curve: Interval(0 , 0.25, curve: Curves.easeOut)));
+        //En que punto del tiempo se reproduce la animacion
+        .animate(CurvedAnimation(
+            parent: controller,
+            curve: Interval(0, 0.25, curve: Curves.easeOut)));
 
     opacidad = Tween(begin: 0.1, end: 1.0).animate(controller);
+    opacidadOut = Tween(begin: 1.0, end: 0.0).animate(controller);
     controller.addListener(() {
       if (controller.status == AnimationStatus.completed) {
         //*Resetiar el valor de la opacidad
-        controller.reset();
+        //controller.reset();
+        //*Regrese el cudrado
+        controller.reverse();
       }
     });
+
+    mover = Tween(begin: 0.0, end: 200.0).animate(CurvedAnimation(
+        parent: controller, curve: Interval(0, 0.25, curve: Curves.easeOut)));
+    controller.forward();
+
+    agrandar = Tween(begin: 0.0, end: 2.0).animate(CurvedAnimation(
+        parent: controller, curve: Interval(0, 0.25, curve: Curves.easeOut)));
     controller.forward();
     super.initState();
   }
@@ -68,9 +83,16 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
       //*LLama al rectangulo
       child: _Rectangulo(),
       builder: (BuildContext context, Widget? childRectangulo) {
-        return Transform.rotate(angle: rotacion.value, 
-        child:Opacity(opacity: opacidad.value,
-        child: childRectangulo,));
+        return Transform.translate(
+          offset: Offset(mover.value, 0),
+          child: Transform.rotate(
+              angle: rotacion.value,
+              child: Opacity(
+                opacity: opacidad.value,
+                child: Transform.scale(
+                    scale: agrandar.value, child: childRectangulo),
+              )),
+        );
       },
     );
   }
