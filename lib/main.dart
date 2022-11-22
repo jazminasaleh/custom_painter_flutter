@@ -1,4 +1,5 @@
 import 'package:diseno/src/pages/animaciones_page.dart';
+import 'package:diseno/src/pages/circular_progress_page.dart';
 import 'package:diseno/src/pages/headers_page.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Diaños apps',
-      home: AnimacionesPage()
+      home: CircularProgressPage()
     );
   }
 }

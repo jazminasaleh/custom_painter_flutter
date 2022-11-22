@@ -36,11 +36,11 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
 
   @override
   void initState() {
-    //Controlador: es el que dice que avance retroceder y asi
-    controller = new AnimationController(
+    //*Controlador: es el que dice que avance retroceder y asi
+    controller = new AnimationController (
         vsync: this, duration: Duration(milliseconds: 4000));
-    // la rotacion comienza  a variar desde 0 hasta 2 en los 4000 segundo
-    // lo de curves es el tipo de animacion
+    //* la rotacion comienza  a variar desde 0 hasta 2 en los 4000 segundo
+    // *lo de curves es el tipo de animacion
     rotacion = Tween(begin: 0.0, end: 2 * Math.pi)
         //En que punto del tiempo se reproduce la animacion
         .animate(CurvedAnimation(
@@ -52,7 +52,7 @@ class _CuadradoAnimadoState extends State<CuadradoAnimado>
     controller.addListener(() {
       if (controller.status == AnimationStatus.completed) {
         //*Resetiar el valor de la opacidad
-        //controller.reset();
+        //*controller.reset();
         //*Regrese el cudrado
         controller.reverse();
       }
