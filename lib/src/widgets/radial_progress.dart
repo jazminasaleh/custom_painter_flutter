@@ -6,14 +6,15 @@ class RadialProgress extends StatefulWidget {
   final porcenataje;
   final Color colorPrimario;
   final Color colorSecundario;
+  final Color colorFondo;
   final double grosorSecundario;
-   final double grosorPrimario;
+  final double grosorPrimario;
   const RadialProgress(
       {required this.porcenataje,
       this.colorPrimario = Colors.pink,
       this.colorSecundario = Colors.grey,
-      this.grosorSecundario = 8.0, 
-      this.grosorPrimario = 10.0});
+      this.grosorSecundario = 8.0,
+      this.grosorPrimario = 10.0, required this.colorFondo});
 
   @override
   State<RadialProgress> createState() => _RadialProgressState();
@@ -68,8 +69,9 @@ class _RadialProgressState extends State<RadialProgress>
                       (difernciaAnimar * controller.value),
                   widget.colorPrimario,
                   widget.colorSecundario,
-                  widget.grosorSecundario, 
-                  widget.grosorPrimario)),
+                  widget.grosorSecundario,
+                  widget.grosorPrimario, 
+                  widget.colorFondo)),
         );
       },
     );
@@ -81,20 +83,28 @@ class _MiRadialProgress extends CustomPainter {
   final porcentaje;
   final Color colorPrimario;
   final Color colorSecundario;
+   final Color colorFondo;
   final double grosorSecundario;
   final double grosorPrimario;
-  _MiRadialProgress(this.colorPrimario, this.colorSecundario, this.grosorSecundario, this.grosorPrimario,
+  _MiRadialProgress(this.colorPrimario, this.colorSecundario,
+      this.grosorSecundario, this.grosorPrimario, this.colorFondo,
       {this.porcentaje});
 
   @override
   void paint(Canvas canvas, Size size) {
-    //*Porcentaje con el que se va llenando el circulo
-
+    final Rect rect = new Rect.fromCircle(center: Offset(50, 0), radius: 180);
+    //*Para que tenga un gradinete de dos colores
+    //*Y si se quiere sin gradinete se quita esto del gradiente y se decomenta la linea de abajo del color
+    final Gradient gradinete = new LinearGradient(
+        colors: <Color>[
+          colorPrimario, 
+          colorSecundario,
+          ]);
     //?Lapiz, el ancho, color y si es relleno o solo linea
     //*Circulo completado
     final paint = new Paint()
       ..strokeWidth = grosorSecundario
-      ..color = colorSecundario
+      ..color = colorFondo
       ..style = PaintingStyle.stroke;
     final center = new Offset(size.width * 0.5, size.height / 2);
     final radio = min(size.width * 0.5, size.height * 0.5);
@@ -103,7 +113,9 @@ class _MiRadialProgress extends CustomPainter {
     //*Arco
     final paintArco = new Paint()
       ..strokeWidth = grosorPrimario
-      ..color = colorPrimario
+      ..strokeCap = StrokeCap.round
+      //..color = colorPrimario
+      ..shader = gradinete.createShader(rect)
       ..style = PaintingStyle.stroke;
     //*Parte que se va a ir llenando
     //* 2*pi es el circulo completo

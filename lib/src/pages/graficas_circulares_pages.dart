@@ -24,39 +24,55 @@ class _GraficasCircualresPageState extends State<GraficasCircualresPage> {
             });
           }),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-         
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            CustomRadialProgress(porcentaje: porcentaje, color: Color.fromARGB(255, 252, 22, 5)),
+            CustomRadialProgress(
+                porcentaje: porcentaje, color: Color.fromARGB(255, 252, 22, 5), colorS: Colors.white,),
           ],
         ),
-          SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-           CustomRadialProgress(porcentaje: porcentaje, color: Color.fromARGB(255, 5, 249, 13)),
+            CustomRadialProgress(
+                porcentaje: porcentaje, color: Color.fromARGB(255, 5, 249, 13), colorS: Colors.red,),
           ],
         ),
-        SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            CustomRadialProgress(porcentaje: porcentaje, color: Color.fromARGB(255, 251, 3, 86)),
+            CustomRadialProgress(
+                porcentaje: porcentaje, color: Color.fromARGB(255, 251, 3, 86), colorS: Color.fromARGB(255, 86, 86, 86),),
           ],
         ),
-           SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-           CustomRadialProgress(porcentaje: porcentaje, color: Color.fromARGB(255, 1, 136, 247),),
+            CustomRadialProgress(
+              porcentaje: porcentaje,
+              color: Color.fromARGB(255, 1, 136, 247), colorS: Colors.brown,
+            ),
           ],
         ),
-             SizedBox(height: 20,),
+        SizedBox(
+          height: 20,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-           CustomRadialProgress(porcentaje: porcentaje, color: Color.fromARGB(255, 239, 247, 1),),
+            CustomRadialProgress(
+              porcentaje: porcentaje,
+              color: Color.fromARGB(255, 239, 247, 1), colorS: Colors.deepOrange,
+            ),
           ],
         ),
       ]),
@@ -66,9 +82,11 @@ class _GraficasCircualresPageState extends State<GraficasCircualresPage> {
 
 class CustomRadialProgress extends StatelessWidget {
   final Color color;
+  final Color colorS;
   const CustomRadialProgress({
-    
-    required this.porcentaje, required this.color,
+    required this.porcentaje,
+    required this.color, 
+    required this.colorS,
   });
 
   final double porcentaje;
@@ -81,9 +99,9 @@ class CustomRadialProgress extends StatelessWidget {
       child: RadialProgress(
           porcenataje: porcentaje,
           colorPrimario: color,
-          colorSecundario: Color.fromARGB(255, 77, 83, 78),
-          grosorSecundario: 8,
-          grosorPrimario: 10),
+          colorSecundario: colorS,
+          grosorSecundario: 7,
+          grosorPrimario: 10, colorFondo: Colors.grey,),
     );
   }
 }
