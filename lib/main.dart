@@ -1,6 +1,5 @@
-import 'package:diseno/src/pages/animaciones_page.dart';
-import 'package:diseno/src/pages/circular_progress_page.dart';
-import 'package:diseno/src/pages/headers_page.dart';
+import 'package:diseno/src/labs/circular_progress_page.dart';
+import 'package:diseno/src/pages/graficas_circulares_pages.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -10,10 +9,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Diaños apps',
-      home: CircularProgressPage()
+      home: GraficasCircualresPage()
     );
   }
 }
