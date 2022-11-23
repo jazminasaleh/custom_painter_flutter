@@ -2,14 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class RadialProgress extends StatefulWidget {
+class RadialProgressLine extends StatefulWidget {
   final porcenataje;
   final Color colorPrimario;
   final Color colorSecundario;
   final Color colorFondo;
   final double grosorSecundario;
   final double grosorPrimario;
-  const RadialProgress(
+  const RadialProgressLine(
       {required this.porcenataje,
       this.colorPrimario = Colors.pink,
       this.colorSecundario = Colors.grey,
@@ -18,12 +18,12 @@ class RadialProgress extends StatefulWidget {
       required this.colorFondo});
 
   @override
-  State<RadialProgress> createState() => _RadialProgressState();
+  State<RadialProgressLine> createState() => _RadialProgressLineState();
 }
 
 //?La parte de la animacion
 //*whith single... es para la animacion del circulo cuando va aumentando el porcentaje
-class _RadialProgressState extends State<RadialProgress>
+class _RadialProgressLineState extends State<RadialProgressLine>
     with SingleTickerProviderStateMixin {
   //*Para las animaciones
   late AnimationController controller;
@@ -122,7 +122,7 @@ class _MiRadialProgress extends CustomPainter {
       ..shader = gradinete.createShader(rect)
       //*Si quiero con relleno es fill
       //*Solo por fuera stroke
-      ..style = PaintingStyle.fill;
+      ..style = PaintingStyle.stroke;
     //*Parte que se va a ir llenando
     //* 2*pi es el circulo completo
     double arcAngle = 2 * pi * (porcentaje / 100);
@@ -132,7 +132,7 @@ class _MiRadialProgress extends CustomPainter {
     //*Cuarto argumento: si la linea va haciea el cento o no
     //*Quinto argumento: lapiz
     canvas.drawArc(Rect.fromCircle(center: center, radius: radio), -pi / 2,
-        arcAngle, true, paintArco);
+        arcAngle, false, paintArco);
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:diseno/src/widgets/radial_progress.dart';
+import 'package:diseno/src/widgets/radial_progress_line.dart';
 import 'package:flutter/material.dart';
 
 class GraficasCircualresPage extends StatefulWidget {
@@ -17,17 +18,21 @@ class _GraficasCircualresPageState extends State<GraficasCircualresPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.refresh),
+          backgroundColor: Colors.amber,
           onPressed: () {
             setState(() {
               porcentaje += Random().nextInt(20);
               if (porcentaje > 100) porcentaje = 0;
             });
           }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CustomRadialProgress(
+                porcentaje: porcentaje, color: Color.fromARGB(255, 252, 22, 5), colorS: Colors.white,),
+            CustomRadialProgressLine(
                 porcentaje: porcentaje, color: Color.fromARGB(255, 252, 22, 5), colorS: Colors.white,),
           ],
         ),
@@ -39,6 +44,8 @@ class _GraficasCircualresPageState extends State<GraficasCircualresPage> {
           children: [
             CustomRadialProgress(
                 porcentaje: porcentaje, color: Color.fromARGB(255, 5, 249, 13), colorS: Colors.red,),
+            CustomRadialProgressLine(
+                porcentaje: porcentaje, color: Color.fromARGB(255, 5, 249, 13), colorS: Colors.red,),
           ],
         ),
         SizedBox(
@@ -48,6 +55,8 @@ class _GraficasCircualresPageState extends State<GraficasCircualresPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CustomRadialProgress(
+                porcentaje: porcentaje, color: Color.fromARGB(255, 251, 3, 86), colorS: Color.fromARGB(255, 86, 86, 86),),
+                 CustomRadialProgressLine(
                 porcentaje: porcentaje, color: Color.fromARGB(255, 251, 3, 86), colorS: Color.fromARGB(255, 86, 86, 86),),
           ],
         ),
@@ -61,6 +70,10 @@ class _GraficasCircualresPageState extends State<GraficasCircualresPage> {
               porcentaje: porcentaje,
               color: Color.fromARGB(255, 1, 136, 247), colorS: Colors.brown,
             ),
+             CustomRadialProgressLine(
+              porcentaje: porcentaje,
+              color: Color.fromARGB(255, 1, 136, 247), colorS: Colors.brown,
+            ),
           ],
         ),
         SizedBox(
@@ -69,7 +82,12 @@ class _GraficasCircualresPageState extends State<GraficasCircualresPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            
             CustomRadialProgress(
+              porcentaje: porcentaje,
+              color: Color.fromARGB(255, 239, 247, 1), colorS: Colors.deepOrange,
+            ),
+             CustomRadialProgressLine(
               porcentaje: porcentaje,
               color: Color.fromARGB(255, 239, 247, 1), colorS: Colors.deepOrange,
             ),
@@ -97,6 +115,33 @@ class CustomRadialProgress extends StatelessWidget {
       width: 150,
       height: 150,
       child: RadialProgress(
+          porcenataje: porcentaje,
+          colorPrimario: color,
+          colorSecundario: colorS,
+          grosorSecundario: 7,
+          grosorPrimario: 10, colorFondo: Colors.grey,),
+    );
+  }
+}
+
+
+class CustomRadialProgressLine extends StatelessWidget {
+  final Color color;
+  final Color colorS;
+  const CustomRadialProgressLine({
+    required this.porcentaje,
+    required this.color, 
+    required this.colorS,
+  });
+
+  final double porcentaje;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      height: 150,
+      child: RadialProgressLine(
           porcenataje: porcentaje,
           colorPrimario: color,
           colorSecundario: colorS,
