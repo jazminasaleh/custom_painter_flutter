@@ -1,39 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 
 import '../models/slider_model.dart';
+import 'package:provider/provider.dart';
 
 class SlidesShow extends StatelessWidget {
-  const SlidesShow({super.key});
+  final List<Widget> slides;
+
+  SlidesShow({required this.slides});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-       create: (context) => new SliderModel(),
-       child: Center(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 50,
-                ),
-                Container(
-                  height: 300,
-                  width: 300,
-                  child: _Slides(),
-                ),
-                _Dots()
-              ],
+      create: (context) => new SliderModel(),
+      child: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 50,
             ),
-          ),
-      );
+            Container(
+              height: 300,
+              width: 300,
+              child: _Slides(
+                slides: this.slides,
+              ),
+            ),
+            _Dots(
+              totalSlides: slides.length,
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 
-
 //*Todos los puntos
 class _Dots extends StatelessWidget {
-  const _Dots({super.key});
+  final int totalSlides;
+  const _Dots({super.key, required this.totalSlides});
 
   @override
   Widget build(BuildContext context) {
@@ -43,17 +48,8 @@ class _Dots extends StatelessWidget {
       height: 70,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _Dot(
-            index: 0,
-          ),
-          _Dot(
-            index: 1,
-          ),
-          _Dot(
-            index: 2,
-          ),
-        ],
+        //*Para la cantidad de puntos que van a parecer en la parte de abajo
+        children: List.generate(this.totalSlides, (i) => _Dot(index: i))
       ),
     );
   }
@@ -75,10 +71,10 @@ class _Dot extends StatelessWidget {
       height: 12,
       margin: EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
-        //*Para qie vaya cambiando de color
-          color: (pageViewIndex >= index - 0.5 && pageViewIndex < index + 0.5) 
-                    ? Colors.blue
-                    : Colors.grey,
+          //*Para qie vaya cambiando de color
+          color: (pageViewIndex >= index - 0.5 && pageViewIndex < index + 0.5)
+              ? Colors.blue
+              : Colors.grey,
 
           //*Sea circulos
           shape: BoxShape.circle),
@@ -88,6 +84,9 @@ class _Dot extends StatelessWidget {
 
 //*Slide de imagenes
 class _Slides extends StatefulWidget {
+  final List<Widget> slides;
+
+  _Slides({required this.slides});
   @override
   State<_Slides> createState() => _SlidesState();
 }
@@ -102,7 +101,8 @@ class _SlidesState extends State<_Slides> {
     super.initState();
     pageViewController.addListener(() {
       print('Page actaul ${pageViewController.page}');
-      Provider.of<SliderModel>(context, listen: false).currentPage = pageViewController.page!;
+      Provider.of<SliderModel>(context, listen: false).currentPage =
+          pageViewController.page!;
     });
   }
 
@@ -120,35 +120,26 @@ class _SlidesState extends State<_Slides> {
       child: PageView(
         //*Control del cambio de paginas
         controller: pageViewController,
-        children: const [
-          _Slide(
-            svg: 'assets/slide-1.svg',
-          ),
-          _Slide(
-            svg: 'assets/slide-2.svg',
-          ),
-          _Slide(
-            svg: 'assets/slide-3.svg',
-          ),
-        ],
+        /*children: const [
+         
+        ],*/
+        children: widget.slides.map((slide) => _Slide(slide)).toList(),
       ),
     );
   }
 }
 
 class _Slide extends StatelessWidget {
-  final String svg;
+  final Widget slide;
 
-  const _Slide({super.key, required this.svg});
+  const _Slide(this.slide);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: double.infinity,
-      padding: EdgeInsets.all(30),
-      child: SvgPicture.asset(svg),
-    );
+        width: double.infinity,
+        height: double.infinity,
+        padding: EdgeInsets.all(30),
+        child: slide);
   }
 }
-
