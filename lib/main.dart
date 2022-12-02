@@ -1,3 +1,4 @@
+import 'package:diseno/src/pages/emergency_page.dart';
 import 'package:diseno/src/pages/pinterest_page.dart';
 import 'package:diseno/src/pages/slideshow_page.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Diaños apps',
-      home: PinterestPage()
+      home: EmergencyPage()
     );
   }
 }

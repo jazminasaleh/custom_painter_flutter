@@ -8,7 +8,7 @@ class PinterestPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //*Toma todo el tamaño de la pantlal del dispostivi
+    //*Toma todo el tamaño de la pantlla del dispostivo
 
     return ChangeNotifierProvider(
       create: (_) => new _MenuModel(),
