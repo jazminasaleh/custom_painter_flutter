@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:diseno/src/widgets/boton_gordo.dart';
 import 'package:diseno/src/widgets/icon_header.dart';
 import 'package:flutter/material.dart';
@@ -45,13 +46,16 @@ class EmergencyPage extends StatelessWidget {
     ];
 
     List<Widget> itemMap = items.map(
-      (item) => BotonGordo(
-        texto: item.texto, 
-        onPress: (){},
-        icon: item.icon,
-        color1: item.color1,
-        color2: item.color2,
-        )
+      (item) => FadeInRight(
+        duration: Duration(milliseconds: 1000),
+        child: BotonGordo(
+          texto: item.texto, 
+          onPress: (){},
+          icon: item.icon,
+          color1: item.color1,
+          color2: item.color2,
+          ),
+      )
     ).toList();
     return Scaffold(
         body: Stack(
@@ -59,6 +63,7 @@ class EmergencyPage extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(top: 200),
           child: ListView(
+            physics: BouncingScrollPhysics(),
             children: [
               SizedBox(
                 height: 80,
@@ -68,12 +73,37 @@ class EmergencyPage extends StatelessWidget {
             ],
           ),
         ),
+        _Encabezado()
+      ],
+    ));
+  }
+}
+
+class _Encabezado extends StatelessWidget {
+  const _Encabezado({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
         IconHeader(
             icon: FontAwesomeIcons.plus,
             titulo: 'Asistencia medica',
-            subtitulo: 'Haz solicitud')
+            subtitulo: 'Haz solicitud'),
+
+        Positioned(
+          right: 0,
+          top: 45,
+          child: RawMaterialButton(
+            onPressed: () {  },
+            shape: CircleBorder(),
+            padding: EdgeInsets.all(15),
+            child: FaIcon(FontAwesomeIcons.ellipsisVertical , color: Colors.white,))
+        ),
       ],
-    ));
+    );
   }
 }
 
