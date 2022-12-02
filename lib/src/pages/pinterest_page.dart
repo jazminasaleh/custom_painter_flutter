@@ -26,6 +26,7 @@ class PinterestPage extends StatelessWidget {
 }
 
 //*Posicion de donde se va a colocar el menu
+//*Y cada uno de los botones que lleva el menu
 class _PinterestMenuLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -102,6 +103,7 @@ class _PinterestGridState extends State<PinterestGrid> {
       itemBuilder: (BuildContext context, int index) => _PinterestItem(
         index: index,
       ),
+      //*El tamano del cuadro
       staggeredTileBuilder: (int index) =>
           new StaggeredTile.count(2, index.isEven ? 2 : 3),
       mainAxisSpacing: 4.0,
@@ -133,6 +135,7 @@ class _PinterestItem extends StatelessWidget {
   }
 }
 
+//*Provider
 class _MenuModel with ChangeNotifier {
   bool _mostrar = true;
 

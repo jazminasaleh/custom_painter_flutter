@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PinterestButton {
+  //*El boton y cuando se escpicha el boton que pase
   final Function onPressed;
   final IconData icon;
-  
-
   PinterestButton({required this.onPressed, required this.icon});
 }
 
 //*Se crea cada uno de los botones
+//*De la parte del menu de la parte de abajo
 class PinterestMenu extends StatelessWidget {
   final bool mostrar;
   final Color activarColor;
@@ -17,14 +17,15 @@ class PinterestMenu extends StatelessWidget {
   final Color inactiveColor;
   final List<PinterestButton> items;
 
-  const PinterestMenu(
-      {super.key,
+  const PinterestMenu({
+      super.key,
       this.mostrar = true,
       this.activarColor = Colors.black,
       this.backgroundColor = Colors.white,
       this.inactiveColor = Colors.blueGrey,
       required this.items
-      });
+  });
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -33,19 +34,16 @@ class PinterestMenu extends StatelessWidget {
           duration: Duration(milliseconds: 250),
           opacity: (mostrar) ? 1 : 0,
           child: Builder(builder: (BuildContext context) {
-            Provider.of<_MenuModel>(context).backgroundColor =
-                this.backgroundColor;
-            Provider.of<_MenuModel>(context).activeColor = this.activarColor;
-            Provider.of<_MenuModel>(context).inactiveColor = this.inactiveColor;
-            return _PinterestMenuBackground(
-              child: _MenuItems(items),
-            );
+            Provider.of<_MenuModel>(context).backgroundColor = backgroundColor;
+            Provider.of<_MenuModel>(context).activeColor     = activarColor;
+            Provider.of<_MenuModel>(context).inactiveColor   = inactiveColor;
+            return _PinterestMenuBackground(child: _MenuItems(items),);
           })),
     );
   }
 }
 
-//*Estilo de los botones del menu
+//*La cajita donde se encuentran los botones 
 class _PinterestMenuBackground extends StatelessWidget {
   final Widget child;
 
@@ -69,6 +67,7 @@ class _PinterestMenuBackground extends StatelessWidget {
   }
 }
 
+//*Los botones del menu
 class _MenuItems extends StatelessWidget {
   final List menuItems;
 
