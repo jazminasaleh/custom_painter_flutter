@@ -13,6 +13,7 @@ class ItemBoton {
   ItemBoton(this.icon, this.texto, this.color1, this.color2);
 }
 
+//*Tods los carts
 class EmergencyPage extends StatelessWidget {
   const EmergencyPage({super.key});
 
@@ -46,6 +47,7 @@ class EmergencyPage extends StatelessWidget {
     ];
 
     List<Widget> itemMap = items.map(
+      //*FadeInRight para la animacion animated_do
       (item) => FadeInRight(
         duration: Duration(milliseconds: 1000),
         child: BotonGordo(
@@ -63,6 +65,7 @@ class EmergencyPage extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(top: 200),
           child: ListView(
+            //*Para que cuando se bajen los container halla rebote
             physics: BouncingScrollPhysics(),
             children: [
               SizedBox(
@@ -79,6 +82,7 @@ class EmergencyPage extends StatelessWidget {
   }
 }
 
+//*La parte de arriba
 class _Encabezado extends StatelessWidget {
   const _Encabezado({
     Key? key,

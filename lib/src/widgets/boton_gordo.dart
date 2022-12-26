@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+//*Cda uno de los containers o botones
 class BotonGordo extends StatelessWidget {
   final IconData icon;
   final String texto;
@@ -25,13 +26,13 @@ class BotonGordo extends StatelessWidget {
           _BotonGordoBackground(icon: icon,color1: color1, color2: color2),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 140, width: 40,),
-              FaIcon( this.icon, color: Colors.white, size: 40,),
-              SizedBox(width: 20,),
-              Text( this.texto, style: TextStyle(color: Colors.white, fontSize: 18),),
-              FaIcon(FontAwesomeIcons.chevronRight, color: Colors.white,),
-              SizedBox(width: 40,)
+            children: <Widget>[
+              SizedBox( height: 140, width: 40 ),
+              FaIcon( this.icon, color: Colors.white, size: 40 ),
+              SizedBox( width: 20 ),
+              Expanded(child: Text( this.texto, style: TextStyle( color: Colors.white, fontSize: 18 ) )),
+              FaIcon( FontAwesomeIcons.chevronRight, color: Colors.white.withOpacity(0.8) ),
+              SizedBox( width: 40 ),
             ],
           )
         ],
@@ -40,6 +41,7 @@ class BotonGordo extends StatelessWidget {
   }
 }
 
+//*Lo que hay en el container
 class _BotonGordoBackground extends StatelessWidget {
 
   final IconData icon;
@@ -69,6 +71,7 @@ class _BotonGordoBackground extends StatelessWidget {
       height: 100,
       margin: EdgeInsets.all(20),
       decoration: BoxDecoration(
+        //*sombra en el container
         boxShadow: [
           BoxShadow(color: Colors.black.withOpacity(0.2), offset: Offset(4,6), blurRadius:10 ),
         ],
